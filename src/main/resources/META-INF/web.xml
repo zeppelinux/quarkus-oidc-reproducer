@@ -14,7 +14,7 @@
     </session-config>
 
     <welcome-file-list>
-        <welcome-file>/secure/ui/ajax/basic.xhtml</welcome-file>
+        <welcome-file>secure/ui/ajax/basic.xhtml</welcome-file>
     </welcome-file-list>
 
     <context-param>

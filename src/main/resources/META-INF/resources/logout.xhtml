@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:f="jakarta.faces.core"
+      xmlns:ui="jakarta.faces.facelets"
+      xmlns:p="http://primefaces.org/ui"
+      lang="en">
+
+<f:view contentType="text/html">
+    <ui:insert name="viewParams"/>
+
+    <h:head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5, user-scalable=0"/>
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <link rel="icon" href="#{request.contextPath}/resources/collar-club/images/cropped-cropped-collarclub-logo-32x32.png" type="image/x-icon"></link>
+        <title><ui:insert name="title">You logged out from Collar Club Vernon</ui:insert></title>
+
+        <ui:insert name="head"/>
+    </h:head>
+
+
+    <h:body styleClass="ui-input-filled">
+
+        <p:growl id="growl" sticky="false" showDetail="true" skipDetailIfEqualsSummary="true">
+            <p:autoUpdate/>
+        </p:growl>
+
+        <p:ajaxExceptionHandler type="jakarta.faces.application.ViewExpiredException" update="exceptionDialog" onexception="PF('exceptionDialog').show();" />
+
+        <div class="layout-wrapper layout-topbar-dark layout-menu-dark layout-sidebar" >
+
+            <div class="layout-main">
+                <div class="layout-content">
+                    <div class="mb-5">
+                        <ui:insert name="notification"/>
+                    </div>
+
+                    <div class="grid">
+                        <div class="col">
+                            <div class="card">
+                                <h4>You have been logged out</h4>
+                                <p><a href="/">
+                                    <span>Click here to login again</span>
+                                </a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--                <ui:include src="./footer.xhtml"/>-->
+            </div>
+        </div>
+
+        <h:outputScript name="js/layout.js" library="freya-layout" target="head"/>
+        <h:outputScript name="js/prism.js" library="freya-layout" target="head"/>
+        <h:outputScript name="js/collar_club.js" library="collar-club" target="head"/>
+        <h:outputScript name="jquery/jquery.js" library="primefaces" target="head"/>
+        <h:outputScript name="jquery/jquery-plugins.js" library="primefaces" target="head"/>
+        <h:outputScript name="locales/locale-en.js" library="primefaces" target="head"/>
+        <h:outputStylesheet name="css/primeicons.css" library="freya-layout" />
+        <h:outputStylesheet name="css/primeflex.min.css" library="freya-layout" />
+        <h:outputStylesheet name="css/layout-dark.css" library="freya-layout" />
+        <h:outputStylesheet name="css/collar_club.css" library="collar-club"/>
+    </h:body>
+</f:view>
+</html>

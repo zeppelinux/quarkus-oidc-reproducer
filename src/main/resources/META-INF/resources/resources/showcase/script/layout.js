@@ -185,38 +185,41 @@ App = {
 
 App.init();
 
+var nIntervId;
 $(function () {
-    //setup ajax error handling
     $.ajaxSetup({
         error: function (xhr, status, error) {
             if (xhr.status === 499) {
-                window.location.assign("/secure/home.xhtml");
+                clearInterval(nIntervId);
+                nIntervId = null;
+                console.log("got 499, reloading current page...")
+                location.reload();
             } else if (xhr.status === 401) {
-                window.location.assign("/secure/home.xhtml");
+                //ignore
             }
             else {
-                alert("An error occurred: " + status + "nError: " + error);
+                console.log("An error occurred: " + status + "Error: " + error);
+                location.reload();
             }
         }
     });
 });
 
-var intervalId = window.setInterval(function(){
-    pingUrl('/secure/home.xhtml');
-}, 20000);
 
-async function pingUrl(url){
-    try{
-        var result = await fetch(url, {
-            method: "POST",
-            cache: "no-cache",
-            referrerPolicy: "no-referrer"
-        });
-        console.log(`result.ok: ${result.ok}`);
-        return result.ok;
-    }
-    catch(err){
-        console.log(err);
-    }
-    return 'error';
+if (!nIntervId) {
+    nIntervId = window.setInterval(function(){
+        pingUrl('/secure/ping.xhtml');
+    }, 60000);
+}
+
+function pingUrl(url){
+
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: '',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    }).done(function (data) {});
 }
