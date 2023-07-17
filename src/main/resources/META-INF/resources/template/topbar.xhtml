@@ -35,9 +35,10 @@
                 </li>
             </ul>
         </h:form>
-        <a href="/secure/logout">
-            <span>Log Out</span>
-        </a>
         <p:lifecycle />
+        <h:form>
+            <p:commandLink onclick="logout();" value="Logout"/>
+        </h:form>
+
     </div>
 </ui:composition>

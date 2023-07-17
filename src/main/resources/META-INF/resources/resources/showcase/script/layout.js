@@ -190,10 +190,9 @@ $(function () {
     $.ajaxSetup({
         error: function (xhr, status, error) {
             if (xhr.status === 499) {
-                clearInterval(nIntervId);
-                nIntervId = null;
-                console.log("got 499, reloading current page...")
-                location.reload();
+                stopPing();
+                console.log("got 499, popping up timeoutDialog ...")
+                PF('timeoutDialog').show();
             } else if (xhr.status === 401) {
                 //ignore
             }
@@ -206,11 +205,12 @@ $(function () {
 });
 
 
-if (!nIntervId) {
-    nIntervId = window.setInterval(function(){
-        pingUrl('/secure/ping.xhtml');
-    }, 60000);
+function stopPing(){
+    clearInterval(nIntervId);
+    nIntervId = null;
+    console.log("ping stopped")
 }
+
 
 function pingUrl(url){
 
@@ -222,4 +222,9 @@ function pingUrl(url){
             'X-Requested-With': 'XMLHttpRequest'
         }
     }).done(function (data) {});
+}
+
+function logout(){
+    stopPing();
+    $.get("/secure/logout");
 }
