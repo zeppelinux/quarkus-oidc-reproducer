@@ -191,8 +191,9 @@ $(function () {
         error: function (xhr, status, error) {
             if (xhr.status === 499) {
                 stopPing();
-                console.log("got 499, popping up timeoutDialog ...")
+                console.log("reloading current page...");
                 PF('timeoutDialog').show();
+                //location.reload();
             } else if (xhr.status === 401) {
                 //ignore
             }
@@ -205,6 +206,30 @@ $(function () {
 });
 
 
+if (!nIntervId) {
+    nIntervId = window.setInterval(function(){
+        pingUrl('/secure/ping.xhtml');
+    }, 60000);
+}
+
+function stopPing(){
+    clearInterval(nIntervId);
+    nIntervId = null;
+    console.log("ping stopped")
+}
+
+
+function pingUrl(url){
+
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: '',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    }).done(function (data) {});
+}
 function stopPing(){
     clearInterval(nIntervId);
     nIntervId = null;
