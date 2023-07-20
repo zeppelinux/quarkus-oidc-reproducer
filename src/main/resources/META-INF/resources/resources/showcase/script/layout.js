@@ -230,24 +230,6 @@ function pingUrl(url){
         }
     }).done(function (data) {});
 }
-function stopPing(){
-    clearInterval(nIntervId);
-    nIntervId = null;
-    console.log("ping stopped")
-}
-
-
-function pingUrl(url){
-
-    $.ajax({
-        type: "POST",
-        url: url,
-        data: '',
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest'
-        }
-    }).done(function (data) {});
-}
 
 function logout(){
     stopPing();
